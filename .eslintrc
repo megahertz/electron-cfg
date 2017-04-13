@@ -1,0 +1,46 @@
+{
+  "extends": "airbnb-base/legacy",
+
+  "parserOptions": {
+    "ecmaVersion": 6
+  },
+
+  "env": {
+    "node": true,
+    "mocha": true,
+    "es6": true
+  },
+
+  "rules": {
+    "comma-dangle": ["error", {
+      "arrays": "always-multiline",
+      "objects": "always-multiline",
+      "imports": "always-multiline",
+      "exports": "always-multiline",
+      "functions": "never"
+    }],
+    "max-len": [1, 80],
+    "no-console": 0,
+    "no-multi-spaces": [2, { "exceptions": {
+      "Property": true,
+      "VariableDeclarator": true,
+      "AssignmentExpression": true,
+      "ObjectExpression": true,
+      "ClassProperty": true
+    }}],
+    "no-restricted-syntax": [
+      "error",
+      "LabeledStatement",
+      "WithStatement"
+    ],
+    "no-unused-expressions": 0,
+    "no-use-before-define": 0,
+    "spaced-comment": [2, "always", {
+      "line": { "markers": ["*package", "!", ",", "noinspection"] },
+      "block": {
+        "balanced": true,
+        "markers": ["*package", "!", ",", "noinspection"],
+        "exceptions": ["*"] }
+    }]
+  }
+}
