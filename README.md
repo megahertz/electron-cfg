@@ -36,51 +36,69 @@ config.set('album', { name, photos: photos.length });
 
 ### Methods
 
-#### get(key, defaultValue = null): any
+#### `get(key, defaultValue = null): any`
 
-Return a value.
+Returns a value associated with the key.
 
-**key** Use dot in key to return nested value of some object
+Param         | Type   | Description
+--------------|--------|------------
+key           | string | Key name, use dot in key to return nested value of some object
+defaultValue? | any    | Return this values instead if key not found
 
-**defaultValue** Return this
+#### `set(key, value): electron-cfg`
 
-#### set(key, value): electron-cfg
+Sets a value.
 
-#### has(key): boolean
+#### `has(key): boolean`
 
-#### delete(key): electron-cfg
+Is key exists in the config.
 
-#### all(): Object
-Return the root element of config
+#### `delete(key): electron-cfg`
 
-#### file(): string
-Return path to the settings json file
+Removes values associated with the key.
 
-#### observe(key, handler): electron-cfg
-Attach a handler on keyName property changes. Changes are observable
+#### `all(data = null): Object`
+
+Gets / Sets the root object of the config
+
+#### `file(filePath = null): string`
+Gets / Sets config's file path
+
+#### `observe(key, handler): electron-cfg`
+Attaches a handler on keyName property changes. Changes are observable
 only in the same process.
 
-#### createBrowserWindow(windowOptions = {}, settingsOptions = {}): BrowserWindow
+Param         | Type                              | Description
+--------------|-----------------------------------|------------
+key           | string                            | Key name
+handler       | (newValue, oldValue, key) => void | Observer
 
-#### purge(): electron-cfg
-Remove all data from config
+#### `purge(): electron-cfg`
 
-Will be available in v0.1.0 Creates a new BrowserWindow. electron-cfg
-spies on its state changes.
+Removes all data from config
 
-**windowOptions** is passed to BrowserWindow constructor
+#### `logger(logger = console)`
 
-**settingsOptions** contains boolean options, if it set to false,
-electron cfg will not handle this state changes:
+Gets / Sets a logger (object with error, warn and debug methods)
 
- - width: true
- - height: true
- - x: true
- - y: true
- - maximized: true
- - minimized: false
- - fullscreen: true
- - name is useful when you want to save state of multiple windows
+#### `createBrowserWindow(windowOptions = {}, settingsOptions = {}): BrowserWindow`
+
+Creates a new BrowserWindow. electron-cfg spies on its state changes.
+Will be available in v0.1.0.
+
+ Param                    | Type             | Description
+--------------------------|------------------|------------
+ windowOptions = {}       | Object           | Passed to BrowserWindow constructor
+ settingsOptions = {      | Object \| string | State options
+ -- name: 'main'          | string           | Useful when store settings of multiple windows
+ -- width: true           | boolean          | Handle window width changes
+ -- height: true          | boolean          | Handle window height changes
+ -- x: true               | boolean          | Handle window x offset changes
+ -- y: true               | boolean          | Handle window y offset changes
+ -- maximized: true       | boolean          | Handle window maximized changes
+ -- minimized: true       | boolean          | Handle window minimized changes
+ -- fullscreen: true      | boolean          | Handle window fullscreen changes
+ }                        |                  |
 
 ## Related project
 
