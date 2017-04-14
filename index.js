@@ -22,11 +22,21 @@ module.exports = {
     return module.exports;
   },
 
-  all() {
+  all(data) {
+    if (data) {
+      config.writeData(data);
+      return undefined;
+    }
+
     return config.all();
   },
 
-  file() {
+  file(filePath) {
+    if (filePath) {
+      file.setPath(filePath);
+      return undefined;
+    }
+
     return file.filePath;
   },
 
@@ -38,6 +48,15 @@ module.exports = {
   purge() {
     config.purge();
     return module.exports;
+  },
+
+  logger(logger) {
+    if (logger) {
+      file.setLogger(logger);
+      return undefined;
+    }
+
+    return file.logger;
   },
 
   // eslint-disable-next-line no-unused-vars

@@ -2,6 +2,12 @@ import BrowserWindow = Electron.BrowserWindow;
 
 type IObserver = (newValue: string, oldValue: string, key: string) => any;
 
+interface ILogger {
+    info(message: any): void;
+    warn(message: any): void;
+    error(message: any): void;
+}
+
 interface IElectronCfg {
     get(key: string, defaultValue: any = undefined): any;
     set(key: string, value: any): IElectronCfg;
@@ -15,6 +21,7 @@ interface IElectronCfg {
         windowOptions: object = {},
         settingsOptions: object = {},
     ): BrowserWindow;
+    logger(logger: ILogger = undefined): ILogger;
 }
 
 declare module "electron-cfg" {
