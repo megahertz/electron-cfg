@@ -1,21 +1,19 @@
 {
   "name": "electron-cfg",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Simple key-value storage for electron",
   "main": "index.js",
   "scripts": {
     "lint": "eslint index.js lib",
-    "mocha": "mocha ./lib/**/*.spec.js",
+    "mocha": "mocha 'lib/**/*.spec.js'",
     "test": "npm run lint && npm run tslint && npm run mocha",
     "tslint": "tslint electron-cfg.d.ts"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/megahertz/electron-cfg.git"
-  },
+  "repository": "megahertz/electron-cfg",
   "files": [
     "index.js",
-    "lib/*",
+    "lib/*.js",
+    "!lib/*.spec.js",
     "electron-cfg.d.ts"
   ],
   "keywords": [
@@ -30,12 +28,10 @@
   ],
   "author": "Alexey Prokhorov",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/megahertz/electron-cfg/issues"
-  },
+  "bugs": "https://github.com/megahertz/electron-cfg/issues",
   "homepage": "https://github.com/megahertz/electron-cfg#readme",
   "engines": {
-    "node": ">=6.0"
+    "node": ">=8.0"
   },
   "typings": "./electron-cfg.d.ts",
   "devDependencies": {
@@ -45,10 +41,6 @@
     "eslint-config-airbnb-base": "*",
     "eslint-plugin-import": "*",
     "mocha": "*",
-    "mock-require": "*",
-    "rewire": "*",
-    "sinon": "*",
-    "sinon-chai": "*",
     "tslint": "*",
     "typescript": "*"
   }

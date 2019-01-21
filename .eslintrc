@@ -1,45 +1,49 @@
 {
-  "extends": "airbnb-base/legacy",
-
-  "parserOptions": {
-    "ecmaVersion": 6
-  },
-
+  "extends": "airbnb-base",
   "env": {
-    "node": true,
+    "es6": true,
     "mocha": true,
-    "es6": true
+    "node": true
   },
-
   "rules": {
-    "comma-dangle": ["error", {
+    "arrow-body-style": 0,
+    "comma-dangle": [2, {
       "arrays": "always-multiline",
       "objects": "always-multiline",
       "imports": "always-multiline",
       "exports": "always-multiline",
       "functions": "never"
     }],
-    "max-len": [1, 80],
-    "no-multi-spaces": [2, { "exceptions": {
-      "Property": true,
-      "VariableDeclarator": true,
-      "AssignmentExpression": true,
-      "ObjectExpression": true,
-      "ClassProperty": true
-    }}],
-    "no-restricted-syntax": [
-      "error",
-      "LabeledStatement",
-      "WithStatement"
-    ],
+    "consistent-return": 0,
+    "key-spacing": [2, { "beforeColon": false, "afterColon": true, "mode": "minimum" }],
+    "import/no-extraneous-dependencies":  0,
+    "max-len": [2, { "code": 80 }],
+    "no-confusing-arrow": 0,
+    "no-multi-spaces": [2, {
+      "exceptions": {
+        "AssignmentExpression": true,
+        "AssignmentPattern": true,
+        "CallExpression": true,
+        "VariableDeclarator": true
+      }
+    }],
+    "no-param-reassign": 0,
     "no-unused-expressions": 0,
     "no-use-before-define": 0,
+    "prefer-destructuring": 0,
+    "prefer-promise-reject-errors": 0,
+    "prefer-template": 0,
+    "semi": [2, "always", { "omitLastInOneLineBlock": true }],
     "spaced-comment": [2, "always", {
-      "line": { "markers": ["*package", "!", ",", "noinspection"] },
+      "line": {
+        "markers": ["*package", "!", ",", "noinspection", "region", "endregion"]
+      },
       "block": {
         "balanced": true,
-        "markers": ["*package", "!", ",", "noinspection"],
-        "exceptions": ["*"] }
-    }]
+        "markers": ["*package", "!", ","],
+        "exceptions": ["*"]
+      }
+    }],
+    "strict": 0
   }
 }

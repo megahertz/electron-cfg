@@ -81,31 +81,68 @@ Removes all data from config
 
 Gets / Sets a logger (object with error, warn and debug methods)
 
-#### `createBrowserWindow(windowOptions = {}, settingsOptions = {}): BrowserWindow`
+#### `trackWindow(options): WindowTracker`
 
-Creates a new BrowserWindow. electron-cfg spies on its state changes.
-Will be available in v0.1.0.
+Allow to save/restore window size and position. See next section for details
 
  Param                    | Type             | Description
 --------------------------|------------------|------------
- windowOptions = {}       | Object           | Passed to BrowserWindow constructor
- settingsOptions = {      | Object \| string | State options
+ options = {              | object           | 
  -- name: 'main'          | string           | Useful when store settings of multiple windows
- -- width: true           | boolean          | Handle window width changes
- -- height: true          | boolean          | Handle window height changes
- -- x: true               | boolean          | Handle window x offset changes
- -- y: true               | boolean          | Handle window y offset changes
- -- maximized: true       | boolean          | Handle window maximized changes
- -- minimized: true       | boolean          | Handle window minimized changes
- -- fullscreen: true      | boolean          | Handle window fullscreen changes
+ -- saveFullscreen: true  | boolean          | Whether to restore fullscreen state
+ -- saveMaximize: true    | boolean          | Whether to restore maximized state
  }                        |                  |
+
+### Save/restore window state
+
+```js
+const { BrowserWindow } = require('electron');
+const cfg               = require('electron-cfg');
+
+function createWindow() {
+  const wndTracker = cfg.trackWindow();
+  const wnd = new BrowserWindow({
+    width: 800,  // default, optional
+    height: 600, // default, optional
+    ...wndTracker.windowOptions(),
+  });
+  wndTracker.track(wnd);
+  return wnd;
+}
+```
+
+or it can be simplified using the shortcut:
+
+```js
+const { BrowserWindow } = require('electron');
+const cfg               = require('electron-cfg');
+
+function createWindow() {
+  return cfg.trackWindow().create({ width: 800, height: 600 });
+}
+```
+
+Remarks:
+ - Don't set useContentSize to true at creating BrowserWindow instance because
+   it changes how to calculate window size.
+ - Don't call cfg.trackWindow() before the ready event is fired.
+ 
+#### WindowTracker methods
+  - **create(options): BrowserWindow** - shortcut (see example above)
+  - **track(window: BrowserWindow)** - start handling size/position change
+  - **windowOptions(): Rectangle | object** - get options for BrowserWindow
+    constructor
+  - **untrack()** - stop handling size/position change
 
 ## Related project
 
 Here is a few alternatives which you can try:
-- [electron-json-config](https://github.com/de-luca/electron-json-config)
-- [electron-config](https://github.com/sindresorhus/electron-config)
-- [electron-settings](https://github.com/nathanbuchar/electron-settings)
+ - [electron-json-config](https://github.com/de-luca/electron-json-config)
+ - [electron-config](https://github.com/sindresorhus/electron-config)
+ - [electron-settings](https://github.com/nathanbuchar/electron-settings)
+
+A lot of code of Saving/restoring window state is based on
+[electron-window-state](https://github.com/mawie81/electron-window-state)
 
 ## License
 

@@ -1,13 +1,12 @@
-/* eslint-disable no-unused-vars */
-
 'use strict';
 
-const electron   = require('electron');
-const Config     = require('./lib/Config');
-const ConfigFile = require('./lib/ConfigFile');
+const Config        = require('./lib/Config');
+const ConfigFile    = require('./lib/ConfigFile');
+const WindowTracker = require('./lib/WindowTracker');
 
 const file   = new ConfigFile();
 const config = new Config(file);
+const windows = {};
 
 module.exports = {
   /**
@@ -104,18 +103,20 @@ module.exports = {
     return file.logger;
   },
 
-  /**
-   * Creates a new BrowserWindow. electron-cfg spies on its state changes.
-   * @param {Object} [windowOptions]
-   * @param {Object} [settingsOptions]
-   * @returns {Electron.BrowserWindow}
-   * eslint-disable-next-line no-unused-vars
-   */
-  createBrowserWindow(windowOptions = {}, settingsOptions = {}) {
-    const BrowserWindow = electron.BrowserWindow ||
-      electron.remote.BrowserWindow;
+  trackWindow(options) {
+    options = {
+      name: 'main',
+      saveFullscreen: true,
+      saveMaximize: true,
+      ...options,
+    };
 
-    // TODO: Implement in v0.1.0
-    return new BrowserWindow(windowOptions);
+    const name = options.name;
+
+    if (!windows[name]) {
+      windows[name] = new WindowTracker(options, config, module.exports.logger);
+    }
+
+    return windows[name];
   },
 };
