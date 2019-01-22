@@ -20,9 +20,9 @@ interface IWindowTrackerOptions {
 
 interface IWindowTracker {
   create(options?: BrowserWindowConstructorOptions): BrowserWindow;
-  track(window: BrowserWindow);
-  windowOptions(): Rectangle | object;
-  untrack();
+  assign(window: BrowserWindow);
+  options(): Rectangle | object;
+  unassign();
 }
 
 interface IElectronCfg {
@@ -34,7 +34,7 @@ interface IElectronCfg {
   observe(key: string, handler: IObserver): IElectronCfg;
   purge(): IElectronCfg;
   logger(logger: ILogger): ILogger;
-  trackWindow(options?: IWindowTrackerOptions): IWindowTracker;
+  window(opts?: IWindowTrackerOptions): IWindowTracker;
 }
 
 declare module "electron-cfg" {

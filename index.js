@@ -2,7 +2,7 @@
 
 const Config        = require('./lib/Config');
 const ConfigFile    = require('./lib/ConfigFile');
-const WindowTracker = require('./lib/WindowTracker');
+const WindowTracker = require('./lib/WindowManager');
 
 const file   = new ConfigFile();
 const config = new Config(file);
@@ -103,18 +103,18 @@ module.exports = {
     return file.logger;
   },
 
-  trackWindow(options) {
-    options = {
+  window(opts) {
+    opts = {
       name: 'main',
       saveFullscreen: true,
       saveMaximize: true,
-      ...options,
+      ...opts,
     };
 
-    const name = options.name;
+    const name = opts.name;
 
     if (!windows[name]) {
-      windows[name] = new WindowTracker(options, config, module.exports.logger);
+      windows[name] = new WindowTracker(opts, config, module.exports.logger);
     }
 
     return windows[name];

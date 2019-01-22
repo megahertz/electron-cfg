@@ -81,7 +81,7 @@ Removes all data from config
 
 Gets / Sets a logger (object with error, warn and debug methods)
 
-#### `trackWindow(options): WindowTracker`
+#### `window(options?): WindowManager`
 
 Allow to save/restore window size and position. See next section for details
 
@@ -100,39 +100,39 @@ const { BrowserWindow } = require('electron');
 const cfg               = require('electron-cfg');
 
 function createWindow() {
-  const wndTracker = cfg.trackWindow();
-  const wnd = new BrowserWindow({
+  const winCfg = cfg.window();
+  const window = new BrowserWindow({
     width: 800,  // default, optional
     height: 600, // default, optional
-    ...wndTracker.windowOptions(),
+    ...winCfg.options(),
   });
-  wndTracker.track(wnd);
-  return wnd;
+  winCfg.assign(window);
+  return window;
 }
 ```
 
-or it can be simplified using the shortcut:
+or it can be simplified using the `create` shortcut:
 
 ```js
 const { BrowserWindow } = require('electron');
 const cfg               = require('electron-cfg');
 
 function createWindow() {
-  return cfg.trackWindow().create({ width: 800, height: 600 });
+  return cfg.window().create({ width: 800, height: 600 });
 }
 ```
 
 Remarks:
- - Don't set useContentSize to true at creating BrowserWindow instance because
+ - Don't set `useContentSize` to true at creating BrowserWindow instance because
    it changes how to calculate window size.
- - Don't call cfg.trackWindow() before the ready event is fired.
+ - Don't call `cfg.window()` before the ready event is fired.
  
-#### WindowTracker methods
+#### WindowManager methods
   - **create(options): BrowserWindow** - shortcut (see example above)
-  - **track(window: BrowserWindow)** - start handling size/position change
-  - **windowOptions(): Rectangle | object** - get options for BrowserWindow
+  - **assign(window: BrowserWindow)** - start handling size/position change
+  - **options(): Rectangle | object** - get options for BrowserWindow
     constructor
-  - **untrack()** - stop handling size/position change
+  - **unassign()** - stop handling size/position change
 
 ## Related project
 
