@@ -1,8 +1,4 @@
-import {
-  BrowserWindow,
-  BrowserWindowConstructorOptions,
-  Rectangle,
-} from "electron";
+/// <reference types="electron" />
 
 type IObserver = (newValue: string, oldValue: string, key: string) => any;
 
@@ -19,9 +15,11 @@ interface IWindowTrackerOptions {
 }
 
 interface IWindowTracker {
-  create(options?: BrowserWindowConstructorOptions): BrowserWindow;
-  assign(window: BrowserWindow);
-  options(): Rectangle | object;
+  create(
+    options?: Electron.BrowserWindowConstructorOptions,
+  ): Electron.BrowserWindow;
+  assign(window: Electron.BrowserWindow);
+  options(): Electron.Rectangle | object;
   unassign();
 }
 
@@ -37,7 +35,5 @@ interface IElectronCfg {
   window(opts?: IWindowTrackerOptions): IWindowTracker;
 }
 
-declare module "electron-cfg" {
-  const electronCfg: IElectronCfg;
-  export = electronCfg;
-}
+declare const _d: IElectronCfg;
+export = _d;
