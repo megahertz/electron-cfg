@@ -114,7 +114,7 @@ module.exports = {
     const name = opts.name;
 
     if (!windows[name]) {
-      windows[name] = new WindowTracker(opts, config, module.exports.logger);
+      windows[name] = new WindowTracker(opts, config, module.exports.logger());
     }
 
     return windows[name];
