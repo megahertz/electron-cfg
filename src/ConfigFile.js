@@ -6,6 +6,7 @@ const utils = require('./utils');
 
 class ConfigFile {
   constructor(logger, filePath) {
+    this.uniqueId = new Date().getTime();
     this.setLogger(logger);
     this.setPath(filePath);
   }
@@ -39,17 +40,26 @@ class ConfigFile {
   }
 
   write(data) {
+    const text = JSON.stringify(data, null, '  ');
+
     try {
-      fs.writeFileSync(this.filePath, JSON.stringify(data, null, '  '));
+      this.writeAtomic(text);
     } catch (e) {
       try {
         mkDir(path.dirname(this.filePath));
-        fs.writeFileSync(this.filePath, JSON.stringify(data, null, '  '));
+        this.writeAtomic(text);
       } catch (e2) {
         this.logger && this.logger.warn(e2);
         throw e2;
       }
     }
+  }
+
+  writeAtomic(text) {
+    this.uniqueId += 1;
+    const tempFile = this.filePath + '.' + this.uniqueId;
+    fs.writeFileSync(tempFile, text);
+    fs.renameSync(tempFile, this.filePath);
   }
 }
 
