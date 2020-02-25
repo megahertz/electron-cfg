@@ -1,5 +1,6 @@
 'use strict';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 const electron = require('electron');
 
 module.exports = {

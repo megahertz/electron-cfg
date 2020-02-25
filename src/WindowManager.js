@@ -10,7 +10,7 @@ class WindowManager {
   /**
    * @param {Object}  opts
    * @param {Config}  store
-   * @param {ILogger} logger
+   * @param {Logger} logger
    */
   constructor(opts, store, logger) {
     this.opts    = opts;

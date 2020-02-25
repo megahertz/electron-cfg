@@ -69,7 +69,7 @@ class Config {
     return this.get(key) !== undefined;
   }
 
-  //noinspection ReservedWordAsName
+  // noinspection ReservedWordAsName
   delete(key) {
     if (typeof key !== 'string') return this;
 

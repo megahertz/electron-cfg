@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "lib": ["esnext"],
+    "strict": true,
+    "noImplicitReturns": true
+  },
+  "include": [
+    "./src/__specs__/index.d.test.ts"
+  ]
+}

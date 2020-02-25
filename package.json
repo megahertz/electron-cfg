@@ -2,19 +2,19 @@
   "name": "electron-cfg",
   "version": "1.0.3",
   "description": "Simple key-value storage for electron",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "lint": "eslint index.js lib",
-    "mocha": "mocha 'lib/**/*.spec.js'",
-    "test": "npm run lint && npm run tslint && npm run mocha",
-    "tslint": "tslint electron-cfg.d.ts"
+    "lint": "eslint 'src/**/*.js'",
+    "test": "humile",
+    "test:full": "npm run test && npm run lint && tsc --noEmit --skipLibCheck",
+    "postversion": "git push && git push --tags",
+    "prepack": "npm run test:full",
+    "preversion": "npm run test:full"
   },
   "repository": "megahertz/electron-cfg",
   "files": [
-    "index.js",
-    "lib/*.js",
-    "!lib/*.spec.js",
-    "electron-cfg.d.ts"
+    "src/*",
+    "!__specs__"
   ],
   "keywords": [
     "electron",
@@ -33,15 +33,13 @@
   "engines": {
     "node": ">=8.0"
   },
-  "typings": "./electron-cfg.d.ts",
+  "typings": "src/index.d.ts",
   "devDependencies": {
-    "chai": "*",
     "electron": "*",
     "eslint": "*",
     "eslint-config-airbnb-base": "*",
     "eslint-plugin-import": "*",
-    "mocha": "*",
-    "tslint": "*",
+    "humile": "^0.2.16",
     "typescript": "*"
   }
 }

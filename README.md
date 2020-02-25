@@ -29,7 +29,7 @@ const downloadsPath = config.get('downloads.path', process.cwd());
 
 config.observe('album', (current, old) => {
   console.log(`Previous: ${old.name}, current: ${current.name}`);
-}
+});
 
 config.set('album', { name, photos: photos.length });
 ```
@@ -97,7 +97,7 @@ Allow to save/restore window size and position. See next section for details
 
 ```js
 const { BrowserWindow } = require('electron');
-const cfg               = require('electron-cfg');
+const cfg = require('electron-cfg');
 
 function createWindow() {
   const winCfg = cfg.window();
@@ -114,8 +114,7 @@ function createWindow() {
 or it can be simplified using the `create` shortcut:
 
 ```js
-const { BrowserWindow } = require('electron');
-const cfg               = require('electron-cfg');
+const cfg = require('electron-cfg');
 
 function createWindow() {
   return cfg.window().create({ width: 800, height: 600 });

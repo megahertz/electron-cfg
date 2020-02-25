@@ -1,10 +1,10 @@
 'use strict';
 
-const Config        = require('./lib/Config');
-const ConfigFile    = require('./lib/ConfigFile');
-const WindowTracker = require('./lib/WindowManager');
+const Config = require('./Config');
+const ConfigFile = require('./ConfigFile');
+const WindowTracker = require('./WindowManager');
 
-const file   = new ConfigFile();
+const file = new ConfigFile();
 const config = new Config(file);
 const windows = {};
 
@@ -23,7 +23,7 @@ module.exports = {
    * Sets a value.
    * @param {string} key
    * @param {*} value
-   * @returns {IElectronCfg}
+   * @returns {ElectronCfg}
    */
   set(key, value) {
     config.set(key, value);
@@ -33,7 +33,7 @@ module.exports = {
   /**
    * Removes values associated with the key.
    * @param {string} key
-   * @returns {IElectronCfg}
+   * @returns {ElectronCfg}
    */
   delete(key) {
     config.delete(key);
@@ -73,7 +73,7 @@ module.exports = {
    *   only in the same process.
    * @param {string} key
    * @param {Function} handler (newValue, oldValue, key) => void
-   * @returns {IElectronCfg}
+   * @returns {ElectronCfg}
    */
   observe(key, handler) {
     config.observe(key, handler);
@@ -82,7 +82,7 @@ module.exports = {
 
   /**
    * Removes all data from config
-   * @returns {IElectronCfg}
+   * @returns {ElectronCfg}
    */
   purge() {
     config.purge();
@@ -91,8 +91,8 @@ module.exports = {
 
   /**
    * Gets / Sets a logger (object with error, warn and debug methods)
-   * @param {ILogger} logger
-   * @returns {ILogger|undefined}
+   * @param {Logger} logger
+   * @returns {Logger|undefined}
    */
   logger(logger) {
     if (logger) {
@@ -103,12 +103,12 @@ module.exports = {
     return file.logger;
   },
 
-  window(opts) {
-    opts = {
+  window(windowOptions) {
+    const opts = {
       name: 'main',
       saveFullscreen: true,
       saveMaximize: true,
-      ...opts,
+      ...windowOptions,
     };
 
     const name = opts.name;
@@ -120,3 +120,5 @@ module.exports = {
     return windows[name];
   },
 };
+
+module.exports.default = module.exports;
