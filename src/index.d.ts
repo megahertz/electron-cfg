@@ -29,8 +29,8 @@ interface ElectronCfg {
   get(key: string, defaultValue?: any): any;
   set(key: string, value: any): ElectronCfg;
   delete(key: string): ElectronCfg;
-  all(): object;
-  file(): string;
+  all(data: object = null): object;
+  file(filePath: string = null): string;
   observe(key: string, handler: Observer): ElectronCfg;
   purge(): ElectronCfg;
   logger(logger: Logger): Logger;
