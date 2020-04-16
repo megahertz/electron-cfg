@@ -78,7 +78,7 @@ class ElectronCfg {
    */
   file(fileName) {
     if (fileName) {
-      this.configFile.setName(fileName);
+      this.configFile.setFilePath(fileName);
       return undefined;
     }
 

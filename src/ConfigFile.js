@@ -8,10 +8,10 @@ class ConfigFile {
   constructor(filePath, logger) {
     this.uniqueId = new Date().getTime();
     this.setLogger(logger);
-    this.setName(filePath);
+    this.setFilePath(filePath);
   }
 
-  setName(filePath) {
+  setFilePath(filePath) {
     if (path.isAbsolute(filePath)) {
       this.filePath = filePath;
       return;
