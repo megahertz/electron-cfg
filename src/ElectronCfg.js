@@ -17,6 +17,16 @@ class ElectronCfg {
   }
 
   /**
+   * Create another instance
+   * @param {string} fileName
+   * @param logger
+   * @return {ElectronCfg}
+   */
+  create(fileName, logger = this.loggerInstance) {
+    return new ElectronCfg(fileName, logger);
+  }
+
+  /**
    * Returns a value associated with the key.
    * @param {string} key
    * @param {*} [defaultValue]

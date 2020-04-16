@@ -26,6 +26,7 @@ interface WindowTracker {
 }
 
 interface ElectronCfg {
+  create(fileName: string, logger?: Logger): ElectronCfg;
   get(key: string, defaultValue?: any): any;
   set(key: string, value: any): ElectronCfg;
   delete(key: string): ElectronCfg;

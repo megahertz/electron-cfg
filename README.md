@@ -36,6 +36,9 @@ config.set('album', { name, photos: photos.length });
 
 ### Methods
 
+#### `create(filePath, logger = null)`
+Create a new config instance with different file path.
+
 #### `get(key, defaultValue = null): any`
 
 Returns a value associated with the key.
