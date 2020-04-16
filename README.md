@@ -62,7 +62,9 @@ Removes values associated with the key.
 Gets / Sets the root object of the config
 
 #### `file(filePath = null): string`
-Gets / Sets config's file path
+
+Gets / Sets config's file path. If relative, it uses `app.getPath('userData')`
+to resolve the full path.
 
 #### `observe(key, handler): electron-cfg`
 Attaches a handler on keyName property changes. Changes are observable

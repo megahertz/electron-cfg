@@ -5,20 +5,20 @@ const path = require('path');
 const utils = require('./utils');
 
 class ConfigFile {
-  constructor(logger, filePath) {
+  constructor(filePath, logger) {
     this.uniqueId = new Date().getTime();
     this.setLogger(logger);
-    this.setPath(filePath);
+    this.setName(filePath);
   }
 
-  setPath(filePath) {
-    if (filePath) {
+  setName(filePath) {
+    if (path.isAbsolute(filePath)) {
       this.filePath = filePath;
       return;
     }
 
     try {
-      this.filePath = path.join(utils.getAppPath(), 'electron-cfg.json');
+      this.filePath = path.join(utils.getAppPath(), filePath);
     } catch (e) {
       throw new Error(`Can't get config path automatically. ${e.message}`);
     }
