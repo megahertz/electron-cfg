@@ -15,7 +15,7 @@ try {
 module.exports = {
   getAppPath() {
     const app = getModule('app', false);
-    if (app) {
+    if (app && app.name && app.name.toLowerCase() !== 'electron') {
       return app.getPath('userData');
     }
 
