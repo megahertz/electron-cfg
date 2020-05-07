@@ -144,8 +144,8 @@ class ElectronCfg {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  resolveFilePath(filePath) {
-    return utils.resolveFilePath(filePath);
+  resolveUserDataPath(filePath) {
+    return utils.resolveUserDataPath(filePath);
   }
 }
 

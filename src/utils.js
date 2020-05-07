@@ -24,13 +24,13 @@ module.exports = {
     return getModule('screen');
   },
 
-  resolveFilePath(filePath) {
+  resolveUserDataPath(filePath) {
     if (path.isAbsolute(filePath)) {
       return filePath;
     }
 
     try {
-      return path.join(getAppPath(), filePath);
+      return path.join(getUserDataPath(), filePath);
     } catch (e) {
       throw new Error(`Can't get config path automatically. ${e.message}`);
     }
@@ -56,11 +56,11 @@ function getModule(name, throwOnError = true) {
   return module;
 }
 
-function getAppPath() {
-  return getAppPathInElectron() || getAppPathInNode();
+function getUserDataPath() {
+  return getUserDataPathByElectron() || getUserDataPathByNode();
 }
 
-function getAppPathInElectron() {
+function getUserDataPathByElectron() {
   const app = getModule('app', false);
   if (app && app.name && app.name.toLowerCase() !== 'electron') {
     return app.getPath('userData');
@@ -69,7 +69,7 @@ function getAppPathInElectron() {
   return null;
 }
 
-function getAppPathInNode() {
+function getUserDataPathByNode() {
   const home = os.homedir();
   const appName = getAppName();
 

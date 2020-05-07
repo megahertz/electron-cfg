@@ -13,7 +13,7 @@ class ConfigFile {
 
   setFilePath(filePath) {
     try {
-      this.filePath = utils.resolveFilePath(filePath);
+      this.filePath = utils.resolveUserDataPath(filePath);
     } catch (e) {
       throw new Error(`Can't get config path automatically. ${e.message}`);
     }
