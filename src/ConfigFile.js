@@ -12,13 +12,8 @@ class ConfigFile {
   }
 
   setFilePath(filePath) {
-    if (path.isAbsolute(filePath)) {
-      this.filePath = filePath;
-      return;
-    }
-
     try {
-      this.filePath = path.join(utils.getAppPath(), filePath);
+      this.filePath = utils.resolveFilePath(filePath);
     } catch (e) {
       throw new Error(`Can't get config path automatically. ${e.message}`);
     }

@@ -2,6 +2,7 @@
 
 const Config = require('./Config');
 const ConfigFile = require('./ConfigFile');
+const utils = require('./utils');
 const WindowTracker = require('./WindowManager');
 
 class ElectronCfg {
@@ -140,6 +141,11 @@ class ElectronCfg {
     }
 
     return this.windows[name];
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  resolveFilePath(filePath) {
+    return utils.resolveFilePath(filePath);
   }
 }
 

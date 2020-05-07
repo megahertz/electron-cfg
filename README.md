@@ -98,6 +98,10 @@ Allow to save/restore window size and position. See next section for details
  -- saveMaximize: true    | boolean          | Whether to restore maximized state
  }                        |                  |
 
+#### `resolveFilePath(filePath)`
+
+Return file path relative to userData directory
+
 ### Save/restore window state
 
 ```js

@@ -36,6 +36,7 @@ interface ElectronCfg {
   purge(): ElectronCfg;
   logger(logger: Logger): Logger;
   window(opts?: WindowTrackerOptions): WindowTracker;
+  resolveFilePath(filePath: string): string;
 }
 
 // Merge namespace with interface

@@ -13,15 +13,6 @@ try {
 }
 
 module.exports = {
-  getAppPath() {
-    const app = getModule('app', false);
-    if (app && app.name && app.name.toLowerCase() !== 'electron') {
-      return app.getPath('userData');
-    }
-
-    return getAppPath();
-  },
-
   /**
    * @returns {typeof Electron.BrowserWindow}
    */
@@ -31,6 +22,18 @@ module.exports = {
 
   getScreen() {
     return getModule('screen');
+  },
+
+  resolveFilePath(filePath) {
+    if (path.isAbsolute(filePath)) {
+      return filePath;
+    }
+
+    try {
+      return path.join(getAppPath(), filePath);
+    } catch (e) {
+      throw new Error(`Can't get config path automatically. ${e.message}`);
+    }
   },
 };
 
@@ -54,6 +57,19 @@ function getModule(name, throwOnError = true) {
 }
 
 function getAppPath() {
+  return getAppPathInElectron() || getAppPathInNode();
+}
+
+function getAppPathInElectron() {
+  const app = getModule('app', false);
+  if (app && app.name && app.name.toLowerCase() !== 'electron') {
+    return app.getPath('userData');
+  }
+
+  return null;
+}
+
+function getAppPathInNode() {
   const home = os.homedir();
   const appName = getAppName();
 
