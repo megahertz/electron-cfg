@@ -3,7 +3,11 @@ import {
   BrowserWindowConstructorOptions,
 } from "electron";
 
-type Observer = (newValue: string, oldValue: string, key: string) => any;
+type Observer<Key, Value> = (
+  newValue: Value,
+  oldValue: Value,
+  key: Key,
+) => void;
 
 interface Logger {
   debug?(message: any): void;
@@ -25,14 +29,21 @@ interface WindowTracker {
   unassign(): void;
 }
 
-interface ElectronCfg {
-  create(fileName: string, logger?: Logger): ElectronCfg;
-  get(key: string, defaultValue?: any): any;
-  set(key: string, value: any): ElectronCfg;
-  delete(key: string): ElectronCfg;
-  all(data?: object): object;
+interface ElectronCfg<T = any> {
+  create<NewType = any>(
+    fileName: string,
+    logger?: Logger,
+  ): ElectronCfg<NewType>;
+  get<Key extends keyof T>(key: Key, defaultValue?: T[Key]): T[Key];
+  set<Key extends keyof T>(key: Key, value: T[Key]): ElectronCfg;
+  getAll(): T;
+  setAll(data: T): ElectronCfg;
+  delete<Key extends keyof T>(key: Key): ElectronCfg;
   file(filePath?: string): string;
-  observe(key: string, handler: Observer): ElectronCfg;
+  observe<Key extends keyof T>(
+    key: Key,
+    handler: Observer<Key, T[Key]>
+  ): ElectronCfg;
   purge(): ElectronCfg;
   logger(logger: Logger): Logger;
   window(opts?: WindowTrackerOptions): WindowTracker;

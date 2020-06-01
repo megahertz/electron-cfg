@@ -60,9 +60,13 @@ Is key exists in the config.
 
 Removes values associated with the key.
 
-#### `all(data = null): Object`
+#### `getAll(): Object`
 
-Gets / Sets the root object of the config
+Gets the root object of the config
+
+#### `setAll(data): ElectronCfg`
+
+Sets the root object of the config
 
 #### `file(filePath = null): string`
 

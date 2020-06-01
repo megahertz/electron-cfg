@@ -98,8 +98,23 @@ class Config {
     return this;
   }
 
-  all() {
+  getAll() {
     return this.readData();
+  }
+
+  setAll(data) {
+    this.store.write(data);
+    return this;
+  }
+
+  /**
+   * @deprecated
+   */
+  all() {
+    console.warn(
+      'electron-cfg all() is deprecated. Use getAll() or setAll() instead.'
+    );
+    return this.getAll();
   }
 
   purge() {

@@ -21,11 +21,11 @@ describe('Config', () => {
 
   describe('set', () => {
     it('should set normal value', () => {
-      expect(config().set('a', 1).all()).toEqual({ a: 1 });
+      expect(config().set('a', 1).getAll()).toEqual({ a: 1 });
     });
 
     it('should set hierarchy value', () => {
-      expect(config().set('a.b.c', 11).all()).toEqual(
+      expect(config().set('a.b.c', 11).getAll()).toEqual(
         { a: { b: { c: 11 } } }
       );
     });
@@ -35,7 +35,7 @@ describe('Config', () => {
         .set('a.b', 1)
         .set('a.b', 2);
 
-      expect(cfg.all()).toEqual({ a: { b: 2 } });
+      expect(cfg.getAll()).toEqual({ a: { b: 2 } });
     });
 
     it('should override a scalar value by nested', () => {
@@ -43,7 +43,7 @@ describe('Config', () => {
         .set('a.b', 1)
         .set('a.b.c', 2);
 
-      expect(cfg.all()).toEqual({ a: { b: { c: 2 } } });
+      expect(cfg.getAll()).toEqual({ a: { b: { c: 2 } } });
     });
   });
 
@@ -76,13 +76,13 @@ describe('Config', () => {
     it('should delete a simple values', () => {
       const cfg = config({ a: 1 });
       cfg.delete('a');
-      expect(cfg.all()).toEqual({});
+      expect(cfg.getAll()).toEqual({});
     });
 
     it('should delete a nested value', () => {
       const cfg = config({ a: 1, b: { c: 2 } });
       cfg.delete('b');
-      expect(cfg.all()).toEqual(
+      expect(cfg.getAll()).toEqual(
         { a: 1 }
       );
     });
@@ -90,7 +90,7 @@ describe('Config', () => {
     it('should delete a nested value 2', () => {
       const cfg = config({ a: { b: 1, c: 2 } });
       cfg.delete('a.b');
-      expect(cfg.all()).toEqual(
+      expect(cfg.getAll()).toEqual(
         { a: { c: 2 } }
       );
     });
@@ -98,7 +98,7 @@ describe('Config', () => {
     it('should do nothing when deleting not existed value', () => {
       const cfg = config();
       cfg.delete('a');
-      expect(cfg.all()).toEqual({});
+      expect(cfg.getAll()).toEqual({});
     });
   });
 
