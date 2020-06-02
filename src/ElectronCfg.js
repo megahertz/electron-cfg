@@ -49,6 +49,24 @@ class ElectronCfg {
   }
 
   /**
+   * Gets the root object of the config
+   * @returns {object}
+   */
+  getAll() {
+    return this.config.getAll();
+  }
+
+  /**
+   * Sets the root object of the config
+   * @param {object} data
+   * @returns {ElectronCfg}
+   */
+  setAll(data) {
+    this.config.setAll(data);
+    return this;
+  }
+
+  /**
    * Removes values associated with the key.
    * @param {string} key
    * @returns {ElectronCfg}
@@ -60,16 +78,20 @@ class ElectronCfg {
 
   /**
    * Gets / Sets the root object of the config
-   * @param {Object} [data]
-   * @returns {Object|undefined}
+   * @param {object} [data]
+   * @returns {object|undefined}
+   * @deprecated
    */
   all(data) {
+    console.warn(
+      'electron-cfg all() is deprecated. Use getAll() or setAll() instead.'
+    );
+
     if (data) {
-      this.config.writeData(data);
-      return undefined;
+      return this.setAll(data);
     }
 
-    return this.config.all();
+    return this.getAll();
   }
 
   /**

@@ -107,16 +107,6 @@ class Config {
     return this;
   }
 
-  /**
-   * @deprecated
-   */
-  all() {
-    console.warn(
-      'electron-cfg all() is deprecated. Use getAll() or setAll() instead.'
-    );
-    return this.getAll();
-  }
-
   purge() {
     this.writeData({});
   }
