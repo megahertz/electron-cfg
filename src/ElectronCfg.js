@@ -83,6 +83,7 @@ class ElectronCfg {
    * @deprecated
    */
   all(data) {
+    // eslint-disable-next-line no-console
     console.warn(
       'electron-cfg all() is deprecated. Use getAll() or setAll() instead.'
     );
