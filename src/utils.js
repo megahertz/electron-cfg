@@ -24,13 +24,13 @@ module.exports = {
     return getModule('screen');
   },
 
-  resolveUserDataPath(filePath) {
+  resolveUserDataPath(filePath, useElectronResolver = true) {
     if (path.isAbsolute(filePath)) {
       return filePath;
     }
 
     try {
-      return path.join(getUserDataPath(), filePath);
+      return path.join(getUserDataPath(useElectronResolver), filePath);
     } catch (e) {
       throw new Error(`Can't get config path automatically. ${e.message}`);
     }
@@ -56,7 +56,11 @@ function getModule(name, throwOnError = true) {
   return module;
 }
 
-function getUserDataPath() {
+function getUserDataPath(useElectronResolver = true) {
+  if (!useElectronResolver) {
+    return getUserDataPathByNode();
+  }
+
   return getUserDataPathByElectron() || getUserDataPathByNode();
 }
 

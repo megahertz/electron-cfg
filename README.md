@@ -102,9 +102,14 @@ Allow to save/restore window size and position. See next section for details
  -- saveMaximize: true    | boolean          | Whether to restore maximized state
  }                        |                  |
 
-#### `resolveUserDataPath(filePath)`
+#### `resolveUserDataPath(filePath, useElectronResolver = true)`
 
-Return file path relative to userData directory
+Return file path relative to userData directory, similar to
+
+```path.join(app.getPath('userData'), filePath)```
+
+If useElectronResolver is false, it finds userData path without app.getPath.
+Could be helpful for some cases when the app isn't packaged.
 
 ### Save/restore window state
 
