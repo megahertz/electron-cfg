@@ -47,7 +47,7 @@ interface ElectronCfg<T = any> {
   purge(): ElectronCfg;
   logger(logger: Logger): Logger;
   window(opts?: WindowTrackerOptions): WindowTracker;
-  resolveUserDataPath(filePath: string, useElectronResolver?: boolean): string;
+  resolveUserDataPath(filePath: string, appName?: string): string;
 }
 
 // Merge namespace with interface

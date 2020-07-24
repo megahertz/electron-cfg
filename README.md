@@ -102,14 +102,15 @@ Allow to save/restore window size and position. See next section for details
  -- saveMaximize: true    | boolean          | Whether to restore maximized state
  }                        |                  |
 
-#### `resolveUserDataPath(filePath, useElectronResolver = true)`
+#### `resolveUserDataPath(filePath, appName?)`
 
 Return file path relative to userData directory, similar to
 
 ```path.join(app.getPath('userData'), filePath)```
 
-If useElectronResolver is false, it finds userData path without app.getPath.
-Could be helpful for some cases when the app isn't packaged.
+If appName is set, electron-cfg uses its own code to find userData directory
+for appName without calling app.getPath. Can be helpful in dev environment
+when app.getPath('userData') resolves an incorrect path.
 
 ### Save/restore window state
 

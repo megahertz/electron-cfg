@@ -24,13 +24,13 @@ module.exports = {
     return getModule('screen');
   },
 
-  resolveUserDataPath(filePath, useElectronResolver = true) {
+  resolveUserDataPath(filePath, appName = undefined) {
     if (path.isAbsolute(filePath)) {
       return filePath;
     }
 
     try {
-      return path.join(getUserDataPath(useElectronResolver), filePath);
+      return path.join(getUserDataPath(appName), filePath);
     } catch (e) {
       throw new Error(`Can't get config path automatically. ${e.message}`);
     }
@@ -56,9 +56,9 @@ function getModule(name, throwOnError = true) {
   return module;
 }
 
-function getUserDataPath(useElectronResolver = true) {
-  if (!useElectronResolver) {
-    return getUserDataPathByNode();
+function getUserDataPath(appName = undefined) {
+  if (appName) {
+    return getUserDataPathByNode(appName);
   }
 
   return getUserDataPathByElectron() || getUserDataPathByNode();
@@ -76,9 +76,8 @@ function getUserDataPathByElectron() {
 /**
  * @return {string}
  */
-function getUserDataPathByNode() {
+function getUserDataPathByNode(appName = getAppName()) {
   const home = os.homedir();
-  const appName = getAppName();
 
   switch (process.platform) {
     case 'win32':
