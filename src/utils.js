@@ -73,6 +73,9 @@ function getUserDataPathByElectron() {
   return null;
 }
 
+/**
+ * @return {string}
+ */
 function getUserDataPathByNode() {
   const home = os.homedir();
   const appName = getAppName();
@@ -92,12 +95,67 @@ function getUserDataPathByNode() {
   }
 }
 
+/**
+ * @return {string}
+ */
 function getAppName() {
+  const name = tryReadName(require.main && require.main.filename)
+    || tryReadName(process.resourcesPath, 'app.asar')
+    || tryReadName(process.resourcesPath, 'app')
+    || tryReadName(process.cwd());
+
+  if (!name) {
+    throw new Error('Can\'t detect userData path.');
+  }
+
+  return name;
+}
+
+/**
+ * @param {...string} searchPaths
+ * @return {string | null}
+ */
+function tryReadName(...searchPaths) {
   try {
-    const packageJsonPath = path.join(process.cwd(), 'package.json');
-    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
-    return packageJson.productName || packageJson.name;
+    const searchPath = path.join(...searchPaths);
+    const fileName = findUp('package.json', searchPath);
+    if (!fileName) {
+      return null;
+    }
+
+    const json = JSON.parse(fs.readFileSync(fileName, 'utf8'));
+    const name = json.productName || json.name;
+    if (!name || name.toLowerCase() === 'electron') {
+      return null;
+    }
+
+    return name;
   } catch (e) {
-    throw new Error('Can\'t detect application path.');
+    return null;
+  }
+}
+
+/**
+ * @param {string} fileName
+ * @param {string} [cwd]
+ * @return {string | null}
+ */
+function findUp(fileName, cwd) {
+  let currentPath = cwd;
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
+    const parsedPath = path.parse(currentPath);
+    const root = parsedPath.root;
+    const dir = parsedPath.dir;
+
+    if (fs.existsSync(path.join(currentPath, fileName))) {
+      return path.resolve(path.join(currentPath, fileName));
+    }
+
+    if (currentPath === root) {
+      return null;
+    }
+
+    currentPath = dir;
   }
 }
