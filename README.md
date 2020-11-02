@@ -1,7 +1,7 @@
 # electron-cfg
 [![Build Status](https://travis-ci.org/megahertz/electron-cfg.svg?branch=master)](https://travis-ci.org/megahertz/electron-cfg)
 [![npm version](https://badge.fury.io/js/electron-cfg.svg)](https://badge.fury.io/js/electron-cfg)
-[![Dependencies status](https://david-dm.org/megahertz/electron-cfg/status.svg)](https://david-dm.org/megahertz/electron-cfg)
+[![Dependencies status](https://img.shields.io/david/megahertz/electron-cfg)](https://david-dm.org/megahertz/electron-cfg)
 
 ## Description
 
