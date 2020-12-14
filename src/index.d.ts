@@ -36,6 +36,7 @@ interface ElectronCfg<T = any> {
   ): ElectronCfg<NewType>;
   get<Key extends keyof T>(key: Key, defaultValue?: T[Key]): T[Key];
   set<Key extends keyof T>(key: Key, value: T[Key]): ElectronCfg;
+  has<Key extends keyof T>(key: Key): boolean;
   getAll(): T;
   setAll(data: T): ElectronCfg;
   delete<Key extends keyof T>(key: Key): ElectronCfg;

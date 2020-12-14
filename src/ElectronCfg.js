@@ -49,6 +49,15 @@ class ElectronCfg {
   }
 
   /**
+   * Check whether the key exists in the config
+   * @param key
+   * @return {boolean}
+   */
+  has(key) {
+    return this.config.has(key);
+  }
+
+  /**
    * Gets the root object of the config
    * @returns {object}
    */
