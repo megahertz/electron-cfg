@@ -66,11 +66,13 @@ function getUserDataPath(appName = undefined) {
 
 function getUserDataPathByElectron() {
   const app = getModule('app', false);
-  if (app && app.name && app.name.toLowerCase() !== 'electron') {
-    return app.getPath('userData');
+
+  const userData = app && app.getPath('userData');
+  if (userData && path.basename(userData).toLowerCase() === 'electron') {
+    return null;
   }
 
-  return null;
+  return userData || null;
 }
 
 /**
